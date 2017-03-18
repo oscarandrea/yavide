@@ -43,6 +43,7 @@ guess_system_package_manager(){
         SYSTEM_PACKAGE_TYPE="ebuild"
         SYSTEM_PACKAGE_MANAGER_INSTALL="emerge"
         SYSTEM_PACKAGE_MANAGER_UPDATE="emerge --sync"
+        PIP_INSTALL_CMD="--user"
     fi
 
     if [ $SYSTEM_PACKAGE_TYPE == "rpm" ]; then
@@ -164,7 +165,7 @@ stty $stty_orig     # restore terminal setting.
 #####################################################################################################
 echo "$passwd" | sudo -S $SYSTEM_PACKAGE_MANAGER_UPDATE
 echo "$passwd" | sudo -S $SYSTEM_PACKAGE_MANAGER_INSTALL $SYSTEM_PACKAGE_SET
-echo "$passwd" | sudo -S pip install $PIP_PACKAGE_SET
+echo "$passwd" | sudo -S pip install $PIP_INSTALL_CMD $PIP_PACKAGE_SET
 
 mkdir -p $HOME/.fonts && git clone https://github.com/Lokaltog/powerline-fonts.git $HOME/.fonts
 fc-cache -vf $HOME/.fonts
