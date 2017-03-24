@@ -48,7 +48,7 @@ guess_system_package_manager(){
         SYSTEM_PACKAGE_TYPE="ebuild"
         SYSTEM_PACKAGE_MANAGER_INSTALL="emerge"
         SYSTEM_PACKAGE_MANAGER_UPDATE="emerge --sync"
-        PIP_INSTALL_CMD="pip --user install "
+        PIP_INSTALL_CMD="pip  install --user "
     fi
 
     if [ $SYSTEM_PACKAGE_TYPE == "rpm" ]; then
