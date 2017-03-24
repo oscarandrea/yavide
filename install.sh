@@ -18,32 +18,37 @@ guess_system_package_manager(){
         SYSTEM_PACKAGE_TYPE="rpm"
         SYSTEM_PACKAGE_MANAGER_INSTALL="dnf -y install"
         SYSTEM_PACKAGE_MANAGER_UPDATE="dnf --refresh check-update"
+        PIP_INSTALL_CMD="pip install "
     elif [ "`which apt-get`" != "" ]; then
         SYSTEM_PACKAGE_MANAGER="apt-get"
         SYSTEM_PACKAGE_TYPE="deb"
         SYSTEM_PACKAGE_MANAGER_INSTALL="apt-get -y install"
         SYSTEM_PACKAGE_MANAGER_UPDATE="apt-get update"
+        PIP_INSTALL_CMD="pip install "
     elif [ "`which zypper`" != "" ]; then
         SYSTEM_PACKAGE_MANAGER="zypper"
         SYSTEM_PACKAGE_TYPE="rpm"
         SYSTEM_PACKAGE_MANAGER_INSTALL="zypper --non-interactive install"
         SYSTEM_PACKAGE_MANAGER_UPDATE="zypper refresh"
+        PIP_INSTALL_CMD="pip install "
     elif [ "`which yum`" != "" ]; then
         SYSTEM_PACKAGE_MANAGER="yum"
         SYSTEM_PACKAGE_TYPE="rpm"
         SYSTEM_PACKAGE_MANAGER_INSTALL="yum -y install"
         SYSTEM_PACKAGE_MANAGER_UPDATE="yum check-update"
+        PIP_INSTALL_CMD="pip install "
     elif [ "`which pacman`" != "" ]; then
         SYSTEM_PACKAGE_MANAGER="pacman"
         SYSTEM_PACKAGE_TYPE="archpkg"
         SYSTEM_PACKAGE_MANAGER_INSTALL="pacman --noconfirm -S"
         SYSTEM_PACKAGE_MANAGER_UPDATE="pacman -Syu"
+        PIP_INSTALL_CMD="pip install "
     elif [ "`which emerge`" != "" ]; then
         SYSTEM_PACKAGE_MANAGER="emerge"
         SYSTEM_PACKAGE_TYPE="ebuild"
         SYSTEM_PACKAGE_MANAGER_INSTALL="emerge"
         SYSTEM_PACKAGE_MANAGER_UPDATE="emerge --sync"
-        PIP_INSTALL_CMD="--user"
+        PIP_INSTALL_CMD="pip --user install "
     fi
 
     if [ $SYSTEM_PACKAGE_TYPE == "rpm" ]; then
@@ -165,7 +170,7 @@ stty $stty_orig     # restore terminal setting.
 #####################################################################################################
 echo "$passwd" | sudo -S $SYSTEM_PACKAGE_MANAGER_UPDATE
 echo "$passwd" | sudo -S $SYSTEM_PACKAGE_MANAGER_INSTALL $SYSTEM_PACKAGE_SET
-echo "$passwd" | sudo -S pip install $PIP_INSTALL_CMD $PIP_PACKAGE_SET
+echo "$passwd" | sudo -S  $PIP_INSTALL_CMD $PIP_PACKAGE_SET
 
 mkdir -p $HOME/.fonts && git clone https://github.com/Lokaltog/powerline-fonts.git $HOME/.fonts
 fc-cache -vf $HOME/.fonts
